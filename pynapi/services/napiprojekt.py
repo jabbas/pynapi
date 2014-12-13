@@ -64,4 +64,4 @@ class Napiprojekt(serviceBase):
         return h.hexdigest()
 
 class Dummy(serviceBase):
-    pass
+    priority = 5

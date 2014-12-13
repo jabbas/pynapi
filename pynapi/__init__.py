@@ -34,9 +34,9 @@ class pyNapi(object):
             self.services[s.__name__.lower()] = s(language=self.language)
 
     def get_subs(self, filename):
-        print "get_subs: %s" % filename
+        #print "get_subs: %s" % filename
         for servicename, servicecallable in self.services.iteritems():
-            print "using: %s" % servicename
+            #print "using: %s" % servicename
             subs = servicecallable.get(filename)
             # TODO first wins, prioritize services somehow
             if subs:
