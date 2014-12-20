@@ -31,6 +31,6 @@ def cmdline():
         sub_path = "%s.%s" % (os.path.splitext(path)[0], args.extension)
 
         if subs:
-            print "Found subtitles for '%s'" % filename
+            print "Found subtitles for '%s'" % path
             with open(sub_path, 'wb') as sub:
                 sub.write(subs)
