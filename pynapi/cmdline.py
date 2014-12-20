@@ -30,8 +30,7 @@ def cmdline():
         subs = napi.get_subs(path)
         sub_path = "%s.%s" % (os.path.splitext(path)[0], args.extension)
 
-        with open(sub_path, 'wb') as sub:
-            sub.write(subs)
-
-
-
+        if subs:
+            print "Found subtitles for '%s'" % filename
+            with open(sub_path, 'wb') as sub:
+                sub.write(subs)

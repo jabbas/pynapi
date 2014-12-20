@@ -2,6 +2,7 @@
 import services
 import pkgutil
 import codecs
+import logging
 
 # TODO logging
 
@@ -34,7 +35,7 @@ class pyNapi(object):
             self.services[s.__name__.lower()] = s(language=self.language)
 
     def get_subs(self, filename):
-        #print "get_subs: %s" % filename
+        #print "Gettings subtitles for '%s'" % filename
         for servicename, servicecallable in self.services.iteritems():
             #print "using: %s" % servicename
             subs = servicecallable.get(filename)
