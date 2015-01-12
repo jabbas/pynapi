@@ -35,7 +35,12 @@ class Napiprojekt(serviceBase):
 
         if subs[0:4] != 'NPc0':
             # napiprojekt keeps subtitles in cp1250
-            return codecs.decode(subs, 'cp1250')
+            # ... but, sometimes they are in utf8
+            for cdc in ['cp1250', 'utf8']:
+                try:
+                    return codecs.decode(subs, cdc)
+                except:
+                    pass
 
     def discombobulate(self, filehash):
         """ prepare napiprojekt scrambled hash """
