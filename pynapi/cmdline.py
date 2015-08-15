@@ -1,9 +1,12 @@
-import sys, os
-from pynapi import pyNapi, list_services
+import os
+from pynapi import pyNapi
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 # TODO configuration
 # TODO logging
+
+MOVIE_EXTENSIONS = (".avi", ".mkv", ".mp4")
+
 
 def cmdline():
     p = ArgumentParser(
@@ -11,7 +14,8 @@ def cmdline():
         formatter_class=ArgumentDefaultsHelpFormatter
     )
 
-    p.add_argument('files', metavar='FILE', type=str, nargs="+", help="file that subtitles will be downloaded for")
+    p.add_argument('path', metavar='PATH', type=str, nargs="+",
+                   help="file (directory containing files) that subtitles will be downloaded for")
 
     p.add_argument('-l', '--language',  metavar="LANG", default='pl',       help="language of the subtitles")
     p.add_argument('-e', '--encoding',  metavar="ENC",  default='utf-8',    help="encoding of the subtitles")
@@ -26,11 +30,23 @@ def cmdline():
             encoding = args.encoding
     )
 
-    for path in args.files:
-        subs = napi.get_subs(path)
-        sub_path = "%s.%s" % (os.path.splitext(path)[0], args.extension)
+    file_list = []
+    for path in args.path:
+        if os.path.isdir(path):
+            for root, dirs, files in os.walk(path):
+                for filename in files:
+                    file_path = os.path.join(root, filename)
+                    if file_path.endswith(MOVIE_EXTENSIONS):
+                        file_list.append(file_path)
+        else:
+            if path.endswith(MOVIE_EXTENSIONS):
+                file_list.append(path)
+
+    for file_path in file_list:
+        subs = napi.get_subs(file_path)
+        sub_path = "%s.%s" % (os.path.splitext(file_path)[0], args.extension)
 
         if subs:
-            print "Found subtitles for '%s'" % path
+            print "Found subtitles for '%s'" % file_path
             with open(sub_path, 'wb') as sub:
                 sub.write(subs)
