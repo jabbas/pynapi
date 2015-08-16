@@ -7,7 +7,6 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 MOVIE_EXTENSIONS = (".avi", ".mkv", ".mp4")
 
-
 def cmdline():
     p = ArgumentParser(
         description="subtitles downloader",
