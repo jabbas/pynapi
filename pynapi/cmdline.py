@@ -19,6 +19,8 @@ def cmdline():
     p.add_argument('-l', '--language',  metavar="LANG", default='pl',       help="language of the subtitles")
     p.add_argument('-e', '--encoding',  metavar="ENC",  default='utf-8',    help="encoding of the subtitles")
     p.add_argument('-x', '--extension', metavar="EXT",  default="txt",      help="subtitles filename extension")
+    p.add_argument('-f', '--force', action="store_true",
+                   help="force download subtitles even if they already exist")
 
     # TODO explicitly select services
 
@@ -42,8 +44,10 @@ def cmdline():
                 file_list.append(path)
 
     for file_path in file_list:
-        subs = napi.get_subs(file_path)
         sub_path = "%s.%s" % (os.path.splitext(file_path)[0], args.extension)
+        if os.path.exists(sub_path) and not args.force:
+            continue
+        subs = napi.get_subs(file_path)
 
         if subs:
             print "Found subtitles for '%s'" % file_path
