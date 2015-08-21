@@ -12,7 +12,7 @@ setup(
     author_email = 'jabbas@jabbas.eu',
     url = "https://github.com/jabbas/pynapi",
     license = 'GPLv3',
-    version = '0.5.3',
+    version = '0.5.4',
     description = 'subtitles downloader',
     long_description = long_desc,
     entry_points = { 'console_scripts': [ 'pynapi = pynapi.cmdline:cmdline' ] },
