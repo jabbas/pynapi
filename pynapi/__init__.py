@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import services
+from . import services
 import pkgutil
 import codecs
 import logging
@@ -36,7 +36,7 @@ class pyNapi(object):
 
     def get_subs(self, filename):
         #print "Gettings subtitles for '%s'" % filename
-        for servicename, servicecallable in self.services.iteritems():
+        for servicename, servicecallable in self.services.items():
             #print "using: %s" % servicename
             subs = servicecallable.get(filename)
             # TODO first wins, prioritize services somehow

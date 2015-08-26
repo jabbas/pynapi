@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pynapi.services import serviceBase
-import os, sys, urllib
+import os, sys, urllib.request, urllib.parse, urllib.error
 from hashlib import md5
 import codecs
 
@@ -30,8 +30,8 @@ class Napiprojekt(serviceBase):
         }
         params['t'] = self.discombobulate(params['f'])
 
-        url = self.url_base + urllib.urlencode(params)
-        subs = urllib.urlopen(url).read()
+        url = self.url_base + urllib.parse.urlencode(params)
+        subs = urllib.request.urlopen(url).read()
 
         if subs[0:4] != 'NPc0':
             # napiprojekt keeps subtitles in cp1250
@@ -50,7 +50,7 @@ class Napiprojekt(serviceBase):
         add = [0, 0xd, 0x10, 0xb, 0x5]
 
         b = []
-        for i in xrange(len(idx)):
+        for i in range(len(idx)):
             a = add[i]
             m = mul[i]
             i = idx[i]
