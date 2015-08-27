@@ -1,5 +1,5 @@
 import os
-from pynapi import pyNapi
+from pynapi import pyNapi, __version__
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 # TODO configuration
@@ -21,6 +21,7 @@ def cmdline():
     p.add_argument('-x', '--extension', metavar="EXT",  default="txt",      help="subtitles filename extension")
     p.add_argument('-f', '--force', action="store_true",
                    help="force download subtitles even if they already exist")
+    p.add_argument('-v', '--version', action="version", version='%%(prog)s (version %s)' % __version__)
 
     # TODO explicitly select services
 
