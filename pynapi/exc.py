@@ -1,0 +1,2 @@
+class PynapiException(Exception):
+    pass

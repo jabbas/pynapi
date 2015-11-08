@@ -4,6 +4,10 @@ import os, sys, urllib
 from hashlib import md5
 import codecs
 
+from pynapi.exc import PynapiException
+class NapiprojektException(PynapiException):
+    pass
+
 # TODO logging
 
 class Napiprojekt(serviceBase):
@@ -31,7 +35,11 @@ class Napiprojekt(serviceBase):
         params['t'] = self.discombobulate(params['f'])
 
         url = self.url_base + urllib.urlencode(params)
+
         subs = urllib.urlopen(url).read()
+
+        if subs.startswith('brak pliku tymczasowego'):
+            raise NapiprojektException('napiprojekt.pl API error')
 
         if subs[0:4] != 'NPc0':
             # napiprojekt keeps subtitles in cp1250
